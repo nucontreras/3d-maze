@@ -7,3 +7,4 @@ videos/*
 path_f.py
 test.py
 jupyter_test.ipynb
+3dpathfinder/__pycache__/*
