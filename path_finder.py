@@ -2,7 +2,7 @@ import sys
 import dijkstra3d
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+# from mpl_toolkits.mplot3d import Axes3D
 
 
 class PathFinder3D:
@@ -11,9 +11,24 @@ class PathFinder3D:
         self.path_found = None
         self.field = None
         self.search_type = 'faces'
-        self.types_of_search = ['faces', 'faces and edges', 'faces, edges and corners']  # connectivity
+        self.types_of_search = {0: 'faces', 1: 'faces and edges', 2: 'faces, edges and corners'}  # connectivity
 
     def verify_input(self, start, stop):
+        field_shape = self.field.shape
+
+        # print(f"field_shape = {field_shape}")
+        if any(val < 0 for val in start):
+            print("The start cell is out of bounds. This cell cannot have negative values.")
+            sys.exit()
+        elif any(val < 0 for val in stop):
+            print("The stop cell is out of bounds. This cell cannot have negative values.")
+            sys.exit()
+        elif any(val >= field_shape[0] for val in start):
+            print("The start cell is out of bounds. Check its upper limits.")
+            sys.exit()
+        elif any(val >= field_shape[0] for val in stop):
+            print("The stop cell is out of bounds. Check its upper limits.")
+            sys.exit()
         if self.field[start[0], start[1], start[2]] == 1:
             print(f"The start cell {start} is an obstacle. Change it for an empty cell.")
             sys.exit()
@@ -31,8 +46,8 @@ class PathFinder3D:
 
         if len(check_zeros[0]) != 0:
             print("An optimal path has not been found, because there are obstacles blocking all possible paths.")
-            print(
-                f"Try another type of connectivity to find the optimal path: {' or '.join(str(i) for i in self.types_of_search if i != self.search_type)}")
+            print(f"Try another type of connectivity to find the optimal path: "
+                  f"{' or '.join(str(i) for i in list(self.types_of_search.values()) if i != self.search_type)}")
             sys.exit()
 
     def find_path(self, field, start, stop):
@@ -64,7 +79,6 @@ class PathFinder3D:
         ax = fig.add_subplot(111, projection='3d')
 
         i, j, k = self.field.nonzero()
-        print(f"len(i) = {len(i)}")
         if len(i) < 100:  # if there are more than 100 obtacles, we don't print the points for better visualization
             ax.scatter(i, j, k, marker="x", c="red")
 

@@ -14,14 +14,14 @@ np.random.seed(41)
 # Test Area
 
 # Simple example with no solution: coordinate out of bounds
-# field = np.random.randint(low=0, high=2, size=(3, 3, 3))
-# source = [0, 0, 0]
-# target = [3, 3, 3]
-
-# Simple example with no solution: coordinate is an obstacle
 field = np.random.randint(low=0, high=2, size=(3, 3, 3))
 source = [0, 0, 0]
-target = [2, 2, 2]
+target = [3, 3, 3]
+
+# Simple example with no solution: coordinate is an obstacle
+# field = np.random.randint(low=0, high=2, size=(3, 3, 3))
+# source = [0, 0, 0]
+# target = [2, 2, 2]
 
 # Simple example with solution
 # field = np.random.randint(low=0, high=2, size=(3, 3, 3))
@@ -52,8 +52,6 @@ target = [2, 2, 2]
 # field = np.random.randint(low=0, high=2, size=(40, 50, 60))
 # source = [0, 0, 0]
 # target = [38, 45, 54]
-
-
 
 output = my_path_finder.find_path(field, start=source, stop=target)
 print(output)
