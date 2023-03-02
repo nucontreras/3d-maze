@@ -9,23 +9,23 @@ import matplotlib.pyplot as plt
 # Python class for the Path finder.
 class PathFinder3D:
     """
-        A class used to represent a 3D path finder
+    A class used to represent a 3D path finder
 
-        ...
+    ...
 
-        Methods
-        -------
-        verify_input(start, stop)
-            Verify that the start and stop parameters satisfy the limit
-            constraints and that they are not an obstacle inside the maze.
-        verify_output(output)
-            Verify that the path found does not pass through obstacles.
-        find_path(field, start, stop, connectivity=0)
-            Apply the dijkstra algorithm using the distance to the target
-            as a heuristic (A* search)
-        visualize()
-            Visualize the path found using a 3D map.
-        """
+    Methods
+    -------
+    verify_input(start, stop)
+        Verify that the start and stop parameters satisfy the limit
+        constraints and that they are not an obstacle inside the maze.
+    verify_output(output)
+        Verify that the path found does not pass through obstacles.
+    find_path(field, start, stop, connectivity=0)
+        Apply the dijkstra algorithm using the distance to the target
+        as a heuristic (A* search)
+    visualize()
+        Visualize the path found using a 3D map.
+    """
 
     def __init__(self):
         # Setting hidden parameters to store temporary and permanent information.
@@ -41,10 +41,10 @@ class PathFinder3D:
 
         Parameters
         ----------
-        start : array
+        start : list
             Start cell.
 
-        stop : array
+        stop : list
             Target cell.
         """
 
@@ -52,23 +52,17 @@ class PathFinder3D:
 
         # Verification of 'start' and 'stop' coordinate boundaries.
         if any(val < 0 for val in start):  # Verification of negative values for the start cell.
-            print("The start cell is out of bounds. This cell cannot have negative values.")
-            sys.exit()
+            sys.exit("The start cell is out of bounds. This cell cannot have negative values.")
         elif any(val < 0 for val in stop):  # Verification of negative values for the stop cell.
-            print("The stop cell is out of bounds. This cell cannot have negative values.")
-            sys.exit()
+            sys.exit("The stop cell is out of bounds. This cell cannot have negative values.")
         elif any(start[i] >= field_shape[i] for i in range(3)):  # Checks if the start coordinate respects the shape.
-            print("The start cell is out of bounds. Check its upper limits.")
-            sys.exit()
+            sys.exit("The start cell is out of bounds. Check its upper limits.")
         elif any(stop[i] >= field_shape[i] for i in range(3)):  # Checks if the stop coordinate respects the shape.
-            print("The stop cell is out of bounds. Check its upper limits.")
-            sys.exit()
+            sys.exit("The stop cell is out of bounds. Check its upper limits.")
         elif self._field[start[0], start[1], start[2]] == 1:  # Checks if the start coordinate is not an obstacle.
-            print(f"The start cell {start} is an obstacle. Change it for an empty cell.")
-            sys.exit()
+            sys.exit(f"The start cell {start} is an obstacle. Change it for an empty cell.")
         elif self._field[stop[0], stop[1], stop[2]] == 1:  # Checks if the stop coordinate is not an obstacle.
-            print(f"The stop cell {stop} is an obstacle. Change it for an empty cell.")
-            sys.exit()
+            sys.exit(f"The stop cell {stop} is an obstacle. Change it for an empty cell.")
 
     def verify_output(self, output):
         """Verify that the path found does not pass through obstacles.
@@ -87,12 +81,12 @@ class PathFinder3D:
 
         # Check if there are nodes that are obstacles.
         if len(check_zeros[0]) != 0:
-            print("An optimal path has not been found, because there are obstacles blocking all possible paths.")
-            print("Try another value for the parameter connectivity to find the optimal path.")
             other_options = ' or '.join(str(i) + ': ' + self._types_of_search[i] for i in range(3) if
                                         list(self._types_of_search.values())[i] != self._search_type)
-            print(f"You can also use these values for the connectivity parameter: {other_options}.")
-            sys.exit()
+            sys.exit(f"An optimal path has not been found, because there are obstacles blocking all possible paths.\n"
+                     f"Try another value for the parameter connectivity to find the optimal path.\n"
+                     f"You can also use these values for the connectivity parameter: "
+                     f"{other_options}.")
 
     def find_path(self, field, start, stop, connectivity=0):
         """Apply the dijkstra algorithm using the distance to the target
@@ -103,10 +97,10 @@ class PathFinder3D:
         field : ndarray
             3D matrix representing the maze
 
-        start : array
+        start : list
             Star cell.
 
-        stop : array
+        stop : list
             Target cell.
 
         connectivity : int (default 0)
@@ -123,8 +117,7 @@ class PathFinder3D:
         # Verifies the connectivity chosen by the user.
         connectivity_ = None
         if connectivity not in [0, 1, 2]:
-            print("Only 0, 1, and 2 are the options for the attribute connectivity")
-            sys.exit()
+            sys.exit("Only 0, 1, and 2 are the options for the attribute connectivity")
         else:
             connectivity_ = self._connectivity_dijkstra_package[connectivity]
             self._search_type = self._types_of_search[connectivity]
@@ -150,8 +143,7 @@ class PathFinder3D:
 
         # Check if the program has found an optimal path to print.
         if self._path_found is None:
-            print("First you must use the find_path() function to find an optimal path.")
-            sys.exit()
+            sys.exit("First you must use the find_path() function to find an optimal path.")
 
         # Setting up the 3D figure
         fig = plt.figure(figsize=(16, 16))
