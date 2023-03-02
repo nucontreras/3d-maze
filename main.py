@@ -14,9 +14,9 @@ np.random.seed(41)
 # Test Area
 
 # Simple example with no solution: coordinate out of bounds
-field = np.random.randint(low=0, high=2, size=(3, 3, 3))
-source = [0, 0, 0]
-target = [3, 3, 3]
+# field = np.random.randint(low=0, high=2, size=(3, 3, 3))
+# source = [0, 0, 0]
+# target = [3, 3, 3]
 
 # Simple example with no solution: coordinate is an obstacle
 # field = np.random.randint(low=0, high=2, size=(3, 3, 3))
@@ -25,6 +25,20 @@ target = [3, 3, 3]
 
 # Simple example with solution
 # field = np.random.randint(low=0, high=2, size=(3, 3, 3))
+# source = [0, 0, 0]
+# target = [1, 2, 2]
+
+# Simple example with solution (with connectivity=1: 'faces and edges').
+# field = np.array([[[0, 1, 0], [1, 0, 1], [1, 1, 1]],
+#                   [[1, 0, 1], [0, 0, 1], [1, 0, 0]],
+#                   [[0, 0, 0], [1, 1, 1], [0, 0, 1]]])
+# source = [0, 0, 0]
+# target = [1, 2, 2]
+
+# Simple example with solution (only with connectivity=2: 'faces, edges and corners').
+# field = np.array([[[0, 1, 0], [1, 1, 1], [1, 1, 1]],
+#                   [[1, 1, 1], [1, 0, 1], [1, 0, 0]],
+#                   [[0, 0, 0], [1, 1, 1], [0, 0, 1]]])
 # source = [0, 0, 0]
 # target = [1, 2, 2]
 
@@ -53,7 +67,12 @@ target = [3, 3, 3]
 # source = [0, 0, 0]
 # target = [38, 45, 54]
 
-output = my_path_finder.find_path(field, start=source, stop=target)
+# Monster example with solution
+# field = np.random.randint(low=0, high=2, size=(50, 60, 70))
+# source = [0, 0, 0]
+# target = [49, 59, 69]
+
+output = my_path_finder.find_path(field, start=source, stop=target, connectivity=0)
 print(output)
 
 my_path_finder.visualize()

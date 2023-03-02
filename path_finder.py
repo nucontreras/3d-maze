@@ -1,105 +1,186 @@
+# Import of packages
+
 import sys
 import dijkstra3d
 import numpy as np
 import matplotlib.pyplot as plt
-# from mpl_toolkits.mplot3d import Axes3D
 
 
+# Python class for the Path finder.
 class PathFinder3D:
+    """
+        A class used to represent a 3D path finder
+
+        ...
+
+        Methods
+        -------
+        verify_input(start, stop)
+            Verify that the start and stop parameters satisfy the limit
+            constraints and that they are not an obstacle inside the maze.
+        verify_output(output)
+            Verify that the path found does not pass through obstacles.
+        find_path(field, start, stop, connectivity=0)
+            Apply the dijkstra algorithm using the distance to the target
+            as a heuristic (A* search)
+        visualize()
+            Visualize the path found using a 3D map.
+        """
 
     def __init__(self):
-        self.path_found = None
-        self.field = None
-        self.search_type = 'faces'
-        self.types_of_search = {0: 'faces', 1: 'faces and edges', 2: 'faces, edges and corners'}  # connectivity
+        # Setting hidden parameters to store temporary and permanent information.
+        self._path_found = None
+        self._field = None
+        self._search_type = 'faces'  # Type of connectivity chosen.
+        self._types_of_search = {0: 'faces', 1: 'faces and edges', 2: 'faces, edges and corners'}  # connectivity types.
+        self._connectivity_dijkstra_package = {0: 6, 1: 18, 2: 26}  # Connectivity values used by the dijkstra3d package
 
     def verify_input(self, start, stop):
-        field_shape = self.field.shape
+        """Verify that the start and stop parameters satisfy the limit
+         constraints and that they are not an obstacle inside the maze.
 
-        # print(f"field_shape = {field_shape}")
-        if any(val < 0 for val in start):
+        Parameters
+        ----------
+        start : array
+            Start cell.
+
+        stop : array
+            Target cell.
+        """
+
+        field_shape = self._field.shape
+
+        # Verification of 'start' and 'stop' coordinate boundaries.
+        if any(val < 0 for val in start):  # Verification of negative values for the start cell.
             print("The start cell is out of bounds. This cell cannot have negative values.")
             sys.exit()
-        elif any(val < 0 for val in stop):
+        elif any(val < 0 for val in stop):  # Verification of negative values for the stop cell.
             print("The stop cell is out of bounds. This cell cannot have negative values.")
             sys.exit()
-        elif any(val >= field_shape[0] for val in start):
+        elif any(start[i] >= field_shape[i] for i in range(3)):  # Checks if the start coordinate respects the shape.
             print("The start cell is out of bounds. Check its upper limits.")
             sys.exit()
-        elif any(val >= field_shape[0] for val in stop):
+        elif any(stop[i] >= field_shape[i] for i in range(3)):  # Checks if the stop coordinate respects the shape.
             print("The stop cell is out of bounds. Check its upper limits.")
             sys.exit()
-        if self.field[start[0], start[1], start[2]] == 1:
+        elif self._field[start[0], start[1], start[2]] == 1:  # Checks if the start coordinate is not an obstacle.
             print(f"The start cell {start} is an obstacle. Change it for an empty cell.")
             sys.exit()
-        elif self.field[stop[0], stop[1], stop[2]] == 1:
+        elif self._field[stop[0], stop[1], stop[2]] == 1:  # Checks if the stop coordinate is not an obstacle.
             print(f"The stop cell {stop} is an obstacle. Change it for an empty cell.")
             sys.exit()
 
     def verify_output(self, output):
-        i = np.ravel_multi_index(output.T, self.field.shape)
-        path_values = self.field.take(i)
-        print(f"path_values = {path_values}")
+        """Verify that the path found does not pass through obstacles.
 
+        Parameters
+        ----------
+        output : ndarray
+            The path found by the dijkstra algorithm.
+        """
+
+        # Query the value of each coordinate of the optimal path found by dijkstra in the original maze.
+        i = np.ravel_multi_index(output.T, self._field.shape)
+        path_values = self._field.take(i)
+        # Get the values that are not zeros, that is, if the algorithm encountered an obstacle as the optimal decision.
         check_zeros = path_values.nonzero()
-        print(f"check_values = {check_zeros}")
 
+        # Check if there are nodes that are obstacles.
         if len(check_zeros[0]) != 0:
             print("An optimal path has not been found, because there are obstacles blocking all possible paths.")
-            print(f"Try another type of connectivity to find the optimal path: "
-                  f"{' or '.join(str(i) for i in list(self.types_of_search.values()) if i != self.search_type)}")
+            print("Try another value for the parameter connectivity to find the optimal path.")
+            other_options = ' or '.join(str(i) + ': ' + self._types_of_search[i] for i in range(3) if
+                                        list(self._types_of_search.values())[i] != self._search_type)
+            print(f"You can also use these values for the connectivity parameter: {other_options}.")
             sys.exit()
 
-    def find_path(self, field, start, stop):
-        self.field = field
-        self.verify_input(start, stop)
-        # path = dijkstra3d.dijkstra(field, source, target, bidirectional=True)  # 2x memory usage, faster
-        # self.path_found = dijkstra3d.dijkstra(field, start, stop, compass=True)
+    def find_path(self, field, start, stop, connectivity=0):
+        """Apply the dijkstra algorithm using the distance to the target
+        as a heuristic (A* search)
 
-        # graphe to add constrains
-        # graph = np.zeros(field.shape, dtype=np.uint32)
-        # graph += 0xffffffff  # all directions are permissible
-        # x, y, z = self.field.nonzero()
-        # for i, j, k in zip(x, y, z):
-        #     print(f"i, j, k = {(i, j, k)}")
-        #     graph[i, j, k] = graph[i, j, k] & 0xfffffffe
+        Parameters
+        ----------
+        field : ndarray
+            3D matrix representing the maze
 
-        path_found = dijkstra3d.dijkstra(field, start, stop, compass=True, connectivity=6)  # , voxel_graph=graph
-        self.verify_output(path_found)
-        self.path_found = path_found
+        start : array
+            Star cell.
 
-        return self.path_found
+        stop : array
+            Target cell.
+
+        connectivity : int (default 0)
+            0 (faces), 1 (faces + edges), and
+            3 (faces + edges + corners) voxel graph connectivities
+            are supported.
+
+        Returns
+        -------
+        self._path_found : ndarray
+            The path found by the dijkstra algorithm.
+        """
+
+        # Verifies the connectivity chosen by the user.
+        connectivity_ = None
+        if connectivity not in [0, 1, 2]:
+            print("Only 0, 1, and 2 are the options for the attribute connectivity")
+            sys.exit()
+        else:
+            connectivity_ = self._connectivity_dijkstra_package[connectivity]
+            self._search_type = self._types_of_search[connectivity]
+
+        self._field = field  # Save the maze
+        self.verify_input(start, stop)  # Checks if the input satisfies the boundary constraints.
+
+        # Determine the optimal path.
+        # It always prioritizes the paths with the lowest value, i.e. those with value 0,
+        # but if there is no other option, it takes an obstacle as a path.
+        path_found = dijkstra3d.dijkstra(field, start, stop, compass=True, connectivity=connectivity_)
+
+        self.verify_output(path_found)  # Verify if the path found did not pass through obstacles.
+        self._path_found = path_found  # Save the path found.
+
+        return self._path_found
 
     def visualize(self):
-        if self.path_found is None:
+        """Visualize the path found using a 3D map.
+        For better visualization, if the number of obstacles
+        is greater than 100, they are not added to the display.
+        """
+
+        # Check if the program has found an optimal path to print.
+        if self._path_found is None:
             print("First you must use the find_path() function to find an optimal path.")
             sys.exit()
 
+        # Setting up the 3D figure
         fig = plt.figure(figsize=(16, 16))
         ax = fig.add_subplot(111, projection='3d')
 
-        i, j, k = self.field.nonzero()
+        i, j, k = self._field.nonzero()  # Find the coordinates of the nodes that are obstacles.
         if len(i) < 100:  # if there are more than 100 obtacles, we don't print the points for better visualization
             ax.scatter(i, j, k, marker="x", c="red")
 
-        for i in range(len(self.path_found) - 1):
-            ax.plot([self.path_found[i, 0], self.path_found[i + 1, 0]], [self.path_found[i, 1],
-                                                                         self.path_found[i + 1, 1]],
-                    zs=[self.path_found[i, 2],
-                        self.path_found[i + 1, 2]])
+        # Adds the optimal path found to the 3D plot.
+        for i in range(len(self._path_found) - 1):
+            ax.plot([self._path_found[i, 0], self._path_found[i + 1, 0]], [self._path_found[i, 1],
+                                                                           self._path_found[i + 1, 1]],
+                    zs=[self._path_found[i, 2],
+                        self._path_found[i + 1, 2]])
 
+        # Set the name of the figure and its axes.
         ax.set_title("3D Maze")
 
         ax.set_xlabel("N")
         ax.set_ylabel("M")
         ax.set_zlabel("K")
 
-        ax.set_xticks(range(0, len(self.field) - 1))
-        ax.set_yticks(range(0, len(self.field[0]) - 1))
-        ax.set_zticks(range(0, len(self.field[0][0]) - 1))
+        ax.set_xticks(range(0, len(self._field) - 1))
+        ax.set_yticks(range(0, len(self._field[0]) - 1))
+        ax.set_zticks(range(0, len(self._field[0][0]) - 1))
 
-        ax.set_xlim(0, len(self.field) - 1)
-        ax.set_ylim(0, len(self.field[0]) - 1)
-        ax.set_zlim(0, len(self.field[0][0]) - 1)
+        ax.set_xlim(0, len(self._field) - 1)
+        ax.set_ylim(0, len(self._field[0]) - 1)
+        ax.set_zlim(0, len(self._field[0][0]) - 1)
 
         plt.show()
