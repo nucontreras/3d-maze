@@ -7,16 +7,28 @@ Path finder algorithm finds the shortest path from a start cell to a stop cell.
 ## Table Of Content
 
 - [Problem Description](#problem-description)
-    - [](#)
+    - [Challenge](#challenge)
+    - [Dijkstra algorithm](#dijkstra-algorithm)
+- [dijkstra3d package](#dijkstra3d-package)
 - [Installation](#installation)
     - [Installation in anaconda](#installation-in-anaconda)
     - [Package requirements](#package-requirements)
+    - [Download the code](#download-the-code)
+- [Program use](#program-use)
+    - [Parameter configuration](#parameter-configuration)
+    - [Optimal path](#optimal-path)
+    - [Visualization](#visualization)
+ - [Examples of visualization](#examples-of-visualization)
 - [License](#license)
 - [Links](#links)
 
 
 ## Problem Description 
 
+### Challenge
+### Dijkstra algorithm
+
+## dijkstra3d package
 
 
 ## Installation
@@ -24,21 +36,28 @@ Path finder algorithm finds the shortest path from a start cell to a stop cell.
 
 
 ```bash
-pip 
+conda create --name pathfinder python=3.9.16
 ```
 
 
 ```bash
-pip 
+conda activate pathfinder
+```
+
+### Download the code
+
+```bash
+git clone https://github.com/nucontreras/3d-maze.git
 ```
 
 
 ```bash
-pip 
+cd 3d-maze
 ```
 
 ### Package requirements
 
+To use the program it is necessary to install the following packages using pip : 
 
 ```txt
 matplotlib==3.5.3
@@ -46,13 +65,23 @@ numpy==1.23.5
 dijkstra3d==1.12.0
 ```
 
+Execute the following line of code in the command line:
 
 ```bash
-pip 
+pip install -r requirements.txt
 ```
 
 
-## Visualization of paths found
+## Program use
+
+### Parameter configuration
+
+### Optimal path
+
+### Visualization
+
+
+## Examples of visualization
 <p float="left">
   <img src="img/maze_3x3x3_faces.gif" width="266" />
   <img src="img/maze_3x3x3_faces_edges.gif" width="266" /> 
