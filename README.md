@@ -120,7 +120,7 @@ Execute the following line of code in the command line:
 pip install -r requirements.txt
 ```
 
-You have everything installed to be able to use the program.
+At this step, you have everything installed to be able to use the program.
 
 ## Program use
 
@@ -140,7 +140,7 @@ python main.py
 
 However, you must choose or write certain parameters inside the **main.py** file to test with different types of grids and input and stop cells.
 
-First of all you must create a 3D grid and define start and entry coordinates. Make sure that the coordinates correspond to the size of the grid, otherwise the program will warn you to change the input.
+First of all you must create a 3D grid and define start and stop coordinates. Make sure that the coordinates correspond to the size of the grid, otherwise the program will warn you to change the input.
 
 In the following image there is an example of use:
 
