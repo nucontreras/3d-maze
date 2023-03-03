@@ -2,7 +2,7 @@
 
 <img src="https://ipick.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F3846ffed-7a76-481d-906e-0b3683edca8f%2F8_evoluzioni_labirinto_multidimensionale.jpg?id=63c27227-364b-401a-9541-082ad3e1b088&table=block&spaceId=12cd12be-4b3c-4ad4-89b4-ee3477841446&width=1960&userId=&cache=v2" align="right" width="160" height="178">
 
-Path finder algorithm finds the shortest path from a start cell to a stop cell.
+3DPathFinder algorithm finds the shortest path from a start cell to a stop cell.
 
 This program uses the [dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) algorithm to traverse the 3D matrix in search of the shortest path. To do this, it uses the [dijkstra3d](https://pypi.org/project/dijkstra3d/) package which, by using the distance from target as a heuristic (A* search), returns the best option. 
 
@@ -24,6 +24,7 @@ The program has the ability to check the validity of the inputs and return an an
     - [Visualization](#visualization)
  - [Examples of visualization](#examples-of-visualization)
 - [License](#license)
+- [References](#references)
 - [Links](#links)
 
 
@@ -42,7 +43,13 @@ The objective is to find the shortest possible path from the start cell to the s
 
 ### Dijkstra algorithm
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Dijkstra_Animation.gif" align="right" width="250" height="200">
 
+A Dutch computer scientist, Edsger Dijkstra, in 1959, proposed an algorithm that can be applied to a weighted graph. The graph can either be directed or undirected with the condition that the graph needs to embrace a non-negative value on its every edge. He named this algorithm “Dijkstra’s Algorithm” at his name [[1]](#1).
+
+This algorithm makes a tree of the shortest path from the starting node, the source, to all other nodes (points) in the graph. Dijkstra's algorithm makes use of weights of the edges for finding the path that minimizes the total distance (weight) among the source node and all other nodes. This algorithm is also known as the single-source shortest path algorithm [[1]](#1).
+
+Dijkstra’s algorithm is the iterative algorithmic process to provide us with the shortest path from one specific starting node to all other nodes of a graph. It is different from the minimum spanning tree as the shortest distance among two vertices might not involve all the vertices of the graph. It is important to note that Dijkstra’s algorithm is only applicable when all weights are positive because, during the execution, the weights of the edges are added to find the shortest path [[1]](#1).
 
 ## dijkstra3d package
 
@@ -196,6 +203,12 @@ For the following three cases, the first image of each example uses the algorith
 
 The 3DPathFinder is licensed under the terms of the GNU General Public License
 license and is available for free.
+
+## References
+<a id="1">[1]</a> 
+Dijkstra, E. W. (1968). 
+Go to statement considered harmful. 
+Communications of the ACM.
 
 ## Links
 * [Challenge description](https://ipick.notion.site/Multidimensional-Maze-751dd3ef642748d38606af0add166319)
