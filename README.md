@@ -116,13 +116,31 @@ python main.py
 
 However, you must choose or write certain parameters inside the **main.py** file to test with different types of grids and input and stop cells.
 
+First of all you must create a 3D grid and define start and entry coordinates. Make sure that the coordinates correspond to the size of the grid, otherwise the program will warn you to change the input.
 
+In the following image there is an example of use:
+
+<img src="img/main.JPG" width="600" height="250">
 
 
 ### Optimal path
 
+To find the optimal path, the function *find_path(grid, start=start_cell, stop=stop_cell)* must be used into de *main.py* file.
+
+Example:
+
+```python
+output = my_path_finder.find_path(maze_3d, start=[0, 0, 0], stop=[35, 45, 51])
+```
+
 ### Visualization
 
+To visualize the path within a 3D grid you can add the following line of code to the *main.py* file
+
+```python
+my_path_finder.visualize()
+```
+If the grid has more than 100 obstacle type cells, the display will not show the obstacles for a better visualization of the path found. In another case, the obstacle cells are represented by a red x. In section [Examples of visualization](#examples-of-visualization) you can see some animations of the viewer.
 
 ## Examples of visualization
 
