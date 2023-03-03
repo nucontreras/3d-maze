@@ -4,6 +4,10 @@
 
 Path finder algorithm finds the shortest path from a start cell to a stop cell.
 
+This program uses the [dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) algorithm to traverse the 3D matrix in search of the shortest path. To do this, it uses the [dijkstra3d](https://pypi.org/project/dijkstra3d/) package which, by using the distance from target as a heuristic (A* search), returns the best option. 
+
+The program has the ability to check the validity of the inputs and return an answer only if it is possible to find an optimal path without passing through obstacles in the maze.
+
 ## Table Of Content
 
 - [Problem Description](#problem-description)
@@ -82,19 +86,24 @@ pip install -r requirements.txt
 
 
 ## Examples of visualization
+
+For the following three cases, the first image of each example uses the algorithm looking for possible paths considering only the faces of a voxel in the 3D matrix. The second image considers a connectivity of type faces and edges, i.e. diagonal movements within the same face. Finally, the third one considers faces, edges and corners, i.e. all diagonal movements from a node, including diagonal movements in 3D.
+
+### Maze 3x3x3
 <p float="left">
-  <img src="img/maze_3x3x3_faces.gif" width="266" />
+  <img src="img/maze_3x3x3_faces.gif" width="266"/>
   <img src="img/maze_3x3x3_faces_edges.gif" width="266" /> 
   <img src="img/maze_3x3x3_faces_edges_corners.gif" width="266" /> 
 </p>
 
+### Maze 3x5x9
 <p float="left">
   <img src="img/maze_3x5x9_faces.gif" width="266" />
   <img src="img/maze_3x5x9_faces_edges.gif" width="266" /> 
   <img src="img/maze_3x5x9_faces_edges_corners.gif" width="266" /> 
 </p>
 
-
+### Maze 40x50x60
 <p float="left">
   <img src="img/maze_40x50x60_faces.gif" width="266" />
   <img src="img/maze_40x50x60_faces_edges.gif" width="266" /> 
