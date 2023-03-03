@@ -30,19 +30,37 @@ The program has the ability to check the validity of the inputs and return an an
 ## Problem Description 
 
 ### Challenge
+
+
+<img src="https://ipick.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fa8a31844-44f0-40f5-a3d2-3850fc3f761d%2FUntitled.png?id=150520a9-aa46-406a-b7a4-84a37a86d48b&table=block&spaceId=12cd12be-4b3c-4ad4-89b4-ee3477841446&width=2000&userId=&cache=v2" align="right" width="260" height="160">
+
+The problem consists of a 3D grid of size (N x M x K).
+
+Within the grid each node can be either an empty cell, noted as 0 or an obstacle, noted as 1.
+
+The objective is to find the shortest possible path from the start cell to the stop cell in the grid given its coordinates (e. g., start = [0, 0, 0], end = [N-1, M-1, K-1]).
+
 ### Dijkstra algorithm
+
+
 
 ## dijkstra3d package
 
+To find the most optimal path, 3DPathFinder uses the package [dijkstra3d](https://pypi.org/project/dijkstra3d/). 
 
 ## Installation
+
+3DPathFinder has been tested in an [anaconda](https://www.anaconda.com/) environment with *python 3.9.16*.
+
 ### Installation in anaconda
 
+Create a new environment in anaconda with *python=3.9.16*:
 
 ```bash
 conda create --name pathfinder python=3.9.16
 ```
 
+Activate the new environment:
 
 ```bash
 conda activate pathfinder
@@ -50,10 +68,13 @@ conda activate pathfinder
 
 ### Download the code
 
+To install 3DPathFinder you can download the program from its GitHub repository as follows:
+
 ```bash
 git clone https://github.com/nucontreras/3d-maze.git
 ```
 
+Open the 3DPathFinder folder from the terminal 
 
 ```bash
 cd 3d-maze
@@ -75,6 +96,7 @@ Execute the following line of code in the command line:
 pip install -r requirements.txt
 ```
 
+You have everything installed to be able to use the program.
 
 ## Program use
 
