@@ -50,12 +50,12 @@ To find the most optimal path, 3DPathFinder uses the package [dijkstra3d](https:
 
 
 <img src="https://warehouse-camo.ingress.cmh1.psfhosted.org/5e9118a193e6cb4b675a6b5e329f0b6dc60b8cb2/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f7365756e672d6c61622f64696a6b7374726133642f6d61737465722f64696a6b7374726133642e706e67" width="600" height="350">
-Fig. 1: A benchmark of dijkstra.dijkstra run on a 5123 voxel field of ones from bottom left source to top right target. (black) unidirectional search (blue) bidirectional search (red) A* search aka *compass=True*. 
+Fig. 1: *A benchmark of dijkstra.dijkstra run on a 5123 voxel field of ones from bottom left source to top right target. (black) unidirectional search (blue) bidirectional search (red) A`*` search aka compass=True.*
 
 </br>
 
 <img src="https://warehouse-camo.ingress.cmh1.psfhosted.org/55884be22e4c2a87229220d1ddbcddb3d9a28884/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f7365756e672d6c61622f64696a6b7374726133642f6d61737465722f6d756c74696d6574686f642e706e67" width="600" height="350">
-Fig. 2: A benchmark of dijkstra.dijkstra run on a 503 voxel field of random integers of increasing variation from random source to random target. (blue/squares) unidirectional search (yellow/triangles) bidirectional search (red/diamonds) A* search aka *compass=True*. 
+Fig. 2: *A benchmark of dijkstra.dijkstra run on a 503 voxel field of random integers of increasing variation from random source to random target. (blue/squares) unidirectional search (yellow/triangles) bidirectional search (red/diamonds) A`*` search aka compass=True.*
 
 
 
