@@ -132,6 +132,13 @@ Example:
 ```python
 output = my_path_finder.find_path(maze_3d, start=[0, 0, 0], stop=[35, 45, 51])
 ```
+To the *find_path()* function you can add the *connectivity* parameter to define the type of moves you want to make to find the solution. The options are **0: faces, 1: faces and edges, 2: faces, edges and corners**.
+
+Example:
+
+```python
+output = my_path_finder.find_path(maze_3d, start=[0, 0, 0], stop=[35, 45, 51], connectivity=1)  # search a path by moving along the faces and edges.
+```
 
 ### Visualization
 
