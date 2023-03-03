@@ -46,18 +46,24 @@ The objective is to find the shortest possible path from the start cell to the s
 
 ## dijkstra3d package
 
-To find the most optimal path, 3DPathFinder uses the package [dijkstra3d](https://pypi.org/project/dijkstra3d/). 
+To find the most optimal path, 3DPathFinder uses the package [dijkstra3d](https://pypi.org/project/dijkstra3d/). 3DPathFinder implements the A* search algorithm to find the optimal answer. It uses the distance to the target as a heuristic. In Figure 1 it can be seen that its performance is much better compared to the other resolution methods that can be used with this package.
 
 
 <img src="https://warehouse-camo.ingress.cmh1.psfhosted.org/5e9118a193e6cb4b675a6b5e329f0b6dc60b8cb2/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f7365756e672d6c61622f64696a6b7374726133642f6d61737465722f64696a6b7374726133642e706e67" width="600" height="350">
-Fig. 1: *A benchmark of dijkstra.dijkstra run on a 5123 voxel field of ones from bottom left source to top right target. (black) unidirectional search (blue) bidirectional search (red) A`*` search aka compass=True.*
+Fig. 1: A benchmark of dijkstra.dijkstra run on a 5123 voxel field of ones from bottom left source to top right target. (black) unidirectional search (blue) bidirectional search (red) A* search aka compass=True.
 
 </br>
+</br>
+
+On the other hand, image 2 shows that this type of heuristic works very well when the grid is larger.
 
 <img src="https://warehouse-camo.ingress.cmh1.psfhosted.org/55884be22e4c2a87229220d1ddbcddb3d9a28884/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f7365756e672d6c61622f64696a6b7374726133642f6d61737465722f6d756c74696d6574686f642e706e67" width="600" height="350">
-Fig. 2: *A benchmark of dijkstra.dijkstra run on a 503 voxel field of random integers of increasing variation from random source to random target. (blue/squares) unidirectional search (yellow/triangles) bidirectional search (red/diamonds) A`*` search aka compass=True.*
+Fig. 2: A benchmark of dijkstra.dijkstra run on a 503 voxel field of random integers of increasing variation from random source to random target. (blue/squares) unidirectional search (yellow/triangles) bidirectional search (red/diamonds) A* search aka compass=True.
 
+</br>
+</br>
 
+The *dijkstra3d* package uses *cython* to store the value of program variables using the *C* language. For this reason, by saving values using a compiled language, the access to the variables is much faster, thus increasing the performance considerably compared to a program written only in *python*.
 
 ## Installation
 
