@@ -100,7 +100,24 @@ You have everything installed to be able to use the program.
 
 ## Program use
 
+To use the program you have to open the *3dpathfinder/* folder in the command line:
+
+```bash
+cd 3dpathfinder
+```
+
 ### Parameter configuration
+
+The execution of the program is performed with the following command:
+
+```bash
+python main.py
+```
+
+However, you must choose or write certain parameters inside the **main.py** file to test with different types of grids and input and stop cells.
+
+
+
 
 ### Optimal path
 
